@@ -13,6 +13,7 @@
     --rule: #e2e2e2;
     --accent: #1a4f8a;
     --code-bg: #f4f4f5;
+    --badge-bg: #f4f4f5;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
@@ -22,6 +23,7 @@
       --rule: #2c2c31;
       --accent: #7fb2e8;
       --code-bg: #1e1e22;
+      --badge-bg: #1e1e22;
     }
   }
   :root[data-theme="dark"] {
@@ -31,6 +33,7 @@
     --rule: #2c2c31;
     --accent: #7fb2e8;
     --code-bg: #1e1e22;
+    --badge-bg: #1e1e22;
   }
   * { box-sizing: border-box; }
   body {
@@ -41,7 +44,17 @@
   }
   .wrap { max-width: 44rem; margin: 0 auto; padding: 4rem 16px 6rem; }
   h1 { font-size: 2rem; letter-spacing: -0.02em; margin: 0 0 .25rem; }
-  .tagline { color: var(--muted); margin: 0 0 3rem; font-size: 1.05rem; }
+  .tagline { color: var(--muted); margin: 0 0 1.5rem; font-size: 1.05rem; }
+  .badge {
+    display: block;
+    background: var(--badge-bg);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: .9rem 1.1rem;
+    margin: 0 0 3rem;
+    font-size: 1rem;
+  }
+  .badge strong { font-weight: 600; }
   h2 { font-size: 1.15rem; margin: 2.75rem 0 .75rem; letter-spacing: -0.01em; }
   p { margin: 0 0 1rem; }
   ul { margin: 0 0 1rem; padding-left: 1.25rem; }
@@ -74,6 +87,12 @@
 
   <h1>montage</h1>
   <p class="tagline">A command-line tool that renders a creator's videos and publishes them to that creator's own YouTube channels.</p>
+
+  <p class="badge">
+    montage publishes through the <strong>YouTube Data API</strong> to <strong>YouTube</strong>
+    channels you own. It uploads; it never reads your account.
+    See the <a href="privacy.html">privacy policy</a> and the <a href="terms.html">terms of use</a>.
+  </p>
 
   <h2>What it does</h2>
   <p>
@@ -118,15 +137,17 @@
     each upload is attempted once.
   </p>
 
-  <h2>Privacy</h2>
+  <h2>Privacy and terms</h2>
   <p>
     montage stores its Google credentials on the operator's own machine and transmits nothing
     to anyone but YouTube. The <a href="privacy.html">privacy policy</a> sets out exactly what
-    is accessed, used, stored and shared.
+    is accessed, used, stored and shared; the <a href="terms.html">terms of use</a> cover what
+    you agree to by running it.
   </p>
 
   <footer>
     <a href="privacy.html">Privacy policy</a>
+    <a href="terms.html">Terms of use</a>
     <a href="https://www.youtube.com/t/terms">YouTube Terms of Service</a>
     <a href="https://policies.google.com/privacy">Google Privacy Policy</a>
   </footer>
