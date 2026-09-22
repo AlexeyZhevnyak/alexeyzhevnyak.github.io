@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>montage</title>
+<meta name="description" content="A command-line tool that renders and publishes a creator's own videos to their own YouTube channels.">
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #1a1a1a;
+    --muted: #5c5c5c;
+    --rule: #e2e2e2;
+    --accent: #1a4f8a;
+    --code-bg: #f4f4f5;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #141416;
+      --fg: #e8e8ea;
+      --muted: #a0a0a8;
+      --rule: #2c2c31;
+      --accent: #7fb2e8;
+      --code-bg: #1e1e22;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #141416;
+    --fg: #e8e8ea;
+    --muted: #a0a0a8;
+    --rule: #2c2c31;
+    --accent: #7fb2e8;
+    --code-bg: #1e1e22;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  .wrap { max-width: 44rem; margin: 0 auto; padding: 4rem 16px 6rem; }
+  h1 { font-size: 2rem; letter-spacing: -0.02em; margin: 0 0 .25rem; }
+  .tagline { color: var(--muted); margin: 0 0 3rem; font-size: 1.05rem; }
+  h2 { font-size: 1.15rem; margin: 2.75rem 0 .75rem; letter-spacing: -0.01em; }
+  p { margin: 0 0 1rem; }
+  ul { margin: 0 0 1rem; padding-left: 1.25rem; }
+  li { margin-bottom: .4rem; }
+  a { color: var(--accent); }
+  code {
+    background: var(--code-bg);
+    padding: .12em .38em;
+    border-radius: 4px;
+    font: .875em/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  .note {
+    border-left: 3px solid var(--rule);
+    padding: .1rem 0 .1rem 1rem;
+    color: var(--muted);
+    margin: 1.5rem 0;
+  }
+  footer {
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    color: var(--muted);
+    font-size: .9rem;
+  }
+  footer a { margin-right: 1.25rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>montage</h1>
+  <p class="tagline">A command-line tool that renders a creator's videos and publishes them to that creator's own YouTube channels.</p>
+
+  <h2>What it does</h2>
+  <p>
+    montage is a personal production tool. It runs on the operator's own computer and covers
+    the whole path from raw material to a published video:
+  </p>
+  <ul>
+    <li>renders long-form videos and vertical short-form cut-downs with <code>ffmpeg</code>;</li>
+    <li>generates instrumental background music locally, with no external service involved;</li>
+    <li>aligns narration to images using a speech-recognition model that runs on the same machine;</li>
+    <li>uploads the finished files to the operator's own YouTube channels on a schedule.</li>
+  </ul>
+
+  <h2>Who uses it</h2>
+  <p>
+    The operator and nobody else. montage has no accounts, no sign-up and no server. Each
+    installation is authorised by the person who owns the YouTube channels it uploads to,
+    and it can only upload to those channels. It is not a service offered to third parties.
+  </p>
+
+  <h2>How it uses the YouTube Data API</h2>
+  <p>
+    Publishing is the only part of montage that contacts YouTube. It requests a single OAuth
+    scope, <code>https://www.googleapis.com/auth/youtube.upload</code>, and calls exactly two
+    endpoints:
+  </p>
+  <ul>
+    <li><code>videos.insert</code> &mdash; uploads a rendered video file;</li>
+    <li><code>thumbnails.set</code> &mdash; attaches the cover image rendered alongside it.</li>
+  </ul>
+  <div class="note">
+    montage makes no read requests. It does not list, search, fetch or analyse anything on
+    YouTube, and it holds no permission that would let it. Both endpoints it uses write the
+    operator's own files to the operator's own channel.
+  </div>
+
+  <h2>Scheduling</h2>
+  <p>
+    A release is a long video plus several short-form cut-downs. montage spaces them out
+    instead of posting everything at once: at most three videos per channel per day, an hour
+    apart, continuing the following day. The queue is a file on the operator's machine, and
+    each upload is attempted once.
+  </p>
+
+  <h2>Privacy</h2>
+  <p>
+    montage stores its Google credentials on the operator's own machine and transmits nothing
+    to anyone but YouTube. The <a href="privacy.html">privacy policy</a> sets out exactly what
+    is accessed, used, stored and shared.
+  </p>
+
+  <footer>
+    <a href="privacy.html">Privacy policy</a>
+    <a href="https://www.youtube.com/t/terms">YouTube Terms of Service</a>
+    <a href="https://policies.google.com/privacy">Google Privacy Policy</a>
+  </footer>
+
+</div>
+</body>
+</html>
