@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy &mdash; montage</title>
+<meta name="description" content="How montage accesses, uses, stores and shares Google user data.">
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #1a1a1a;
+    --muted: #5c5c5c;
+    --rule: #e2e2e2;
+    --accent: #1a4f8a;
+    --code-bg: #f4f4f5;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #141416;
+      --fg: #e8e8ea;
+      --muted: #a0a0a8;
+      --rule: #2c2c31;
+      --accent: #7fb2e8;
+      --code-bg: #1e1e22;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #141416;
+    --fg: #e8e8ea;
+    --muted: #a0a0a8;
+    --rule: #2c2c31;
+    --accent: #7fb2e8;
+    --code-bg: #1e1e22;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  .wrap { max-width: 44rem; margin: 0 auto; padding: 4rem 16px 6rem; }
+  h1 { font-size: 1.85rem; letter-spacing: -0.02em; margin: 0 0 .25rem; }
+  .updated { color: var(--muted); margin: 0 0 3rem; font-size: .95rem; }
+  h2 { font-size: 1.1rem; margin: 2.5rem 0 .65rem; letter-spacing: -0.01em; }
+  p { margin: 0 0 1rem; }
+  ul { margin: 0 0 1rem; padding-left: 1.25rem; }
+  li { margin-bottom: .4rem; }
+  a { color: var(--accent); }
+  code {
+    background: var(--code-bg);
+    padding: .12em .38em;
+    border-radius: 4px;
+    font: .875em/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  table { border-collapse: collapse; width: 100%; margin: 0 0 1.25rem; font-size: .95rem; }
+  th, td { text-align: left; padding: .55rem .7rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  th { font-weight: 600; }
+  .note {
+    border-left: 3px solid var(--rule);
+    padding: .1rem 0 .1rem 1rem;
+    color: var(--muted);
+    margin: 1.5rem 0;
+  }
+  footer {
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    color: var(--muted);
+    font-size: .9rem;
+  }
+  footer a { margin-right: 1.25rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Privacy Policy</h1>
+  <p class="updated">montage &middot; last updated 22 September 2026</p>
+
+  <p>
+    montage is a command-line tool that runs on its operator's own computer. It has no server,
+    no accounts and no other users. This policy describes what it does with Google user data,
+    which in practice means the operator's own YouTube account.
+  </p>
+
+  <h2>What data is accessed</h2>
+  <p>
+    montage asks for one OAuth 2.0 scope and no others:
+  </p>
+  <ul>
+    <li><code>https://www.googleapis.com/auth/youtube.upload</code></li>
+  </ul>
+  <p>
+    That scope permits uploading videos to the authorising account's channel. It does not
+    grant access to watch history, subscriptions, comments, analytics, playlists, personal
+    profile information, or any other Google service.
+  </p>
+  <div class="note">
+    montage sends no read requests to any Google API. It does not list, search, download or
+    analyse content or account information, and it holds no permission that would allow it to.
+  </div>
+
+  <h2>What the data is used for</h2>
+  <p>
+    The access token is used for exactly two operations, both of which publish files the
+    operator produced on their own machine:
+  </p>
+  <table>
+    <tr><th>Endpoint</th><th>Purpose</th></tr>
+    <tr><td><code>videos.insert</code></td><td>Upload a rendered video file to the operator's channel.</td></tr>
+    <tr><td><code>thumbnails.set</code></td><td>Attach the cover image rendered alongside that video.</td></tr>
+  </table>
+  <p>
+    Uploads are made privately by default. The operator decides the visibility of every video.
+    No other use is made of the authorisation, and montage will not use it for a purpose not
+    described here.
+  </p>
+
+  <h2>What is stored, and where</h2>
+  <p>
+    Everything montage stores lives on the operator's own computer. Nothing is stored on a
+    server, because there is no server.
+  </p>
+  <table>
+    <tr><th>Item</th><th>Location</th><th>Permissions</th></tr>
+    <tr>
+      <td>OAuth refresh and access tokens</td>
+      <td><code>~/.config/montage-helper/credentials/</code></td>
+      <td>files <code>0600</code>, directory <code>0700</code></td>
+    </tr>
+    <tr>
+      <td>Publishing queue: which file goes to which channel, when, and the resulting video id</td>
+      <td><code>~/.local/state/montage-helper/queue.json</code></td>
+      <td><code>0600</code></td>
+    </tr>
+    <tr>
+      <td>Video and image files</td>
+      <td>the operator's own project directories</td>
+      <td>as created by the operator</td>
+    </tr>
+  </table>
+
+  <h2>What is shared</h2>
+  <p>
+    Nothing, with anyone. montage transmits data to exactly one destination &mdash; the YouTube Data
+    API, to upload the operator's own videos to the operator's own channel. It contacts no
+    analytics service, no advertising network, no error-reporting service and no third-party
+    backend. No data is sold, rented, or disclosed to any other party.
+  </p>
+  <p>
+    Other parts of montage that are unrelated to Google &mdash; rendering, music generation and
+    speech alignment &mdash; also run entirely on the operator's machine. Audio and video are never
+    uploaded to a transcription or generation service.
+  </p>
+
+  <h2>Retention and revocation</h2>
+  <p>
+    Tokens are kept until the operator removes them or Google invalidates them. The operator
+    can revoke montage's access at any time in two independent ways:
+  </p>
+  <ul>
+    <li>delete the credential files under <code>~/.config/montage-helper/credentials/</code>, which removes the stored tokens immediately;</li>
+    <li>revoke the grant at <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>, which invalidates it at Google's end.</li>
+  </ul>
+  <p>
+    Because montage keeps no server-side copy, deleting the local files is a complete deletion.
+  </p>
+
+  <h2>Compliance</h2>
+  <p>
+    montage's use of information received from Google APIs adheres to the
+    <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API Services User Data Policy</a>,
+    including its Limited Use requirements. Use of the YouTube Data API is subject to the
+    <a href="https://developers.google.com/youtube/terms/api-services-terms-of-service">YouTube API Services Terms of Service</a>
+    and the <a href="https://policies.google.com/privacy">Google Privacy Policy</a>.
+  </p>
+
+  <h2>Changes</h2>
+  <p>
+    If montage's use of Google user data changes, this policy will be updated before the change
+    takes effect, and the date at the top of this page will be revised.
+  </p>
+
+  <h2>Contact</h2>
+  <p>
+    Questions about this policy, or about how montage handles Google user data, can be sent to
+    <a href="mailto:leksa680@gmail.com">leksa680@gmail.com</a>.
+  </p>
+
+  <footer>
+    <a href="index.html">Home</a>
+    <a href="https://www.youtube.com/t/terms">YouTube Terms of Service</a>
+    <a href="https://policies.google.com/privacy">Google Privacy Policy</a>
+  </footer>
+
+</div>
+</body>
+</html>
